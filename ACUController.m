@@ -14,12 +14,16 @@
 }
 
 - (instancetype)init {
-    self = [super init]
+    self = [super init];
     if (self) {
         _isVisible = NO;
+
+        CGFloat x = CGRectGetMaxX([UIScreen mainScreen].bounds) - 50;
+        CGRect frame = CGRectMake(x, 0, 50, CGRectGetMaxY([UIScreen mainScreen].bounds));
+        _menuView = [[ACUMenuView alloc] initWithFrame:frame];
     }
 
-    return self
+    return self;
 }
 
 - (void)fadeMenuIn {
@@ -52,25 +56,28 @@
 
 - (void)_gestureStateChanged:(UIGestureRecognizer*)recognizer {
     if (![ACUSettings sharedSettings].enabled) {
-      return
+      return;
     }
-    
+
     CGPoint touchPoint = [recognizer locationInView:recognizer.view];
-    if (!CGPointEqualToPoint(touchLocation, CGPointZero)) {
+    if (!CGPointEqualToPoint(touchPoint, CGPointZero)) {
         _previousLocationInView = touchPoint;
     }
 
     if (recognizer.state == UIGestureRecognizerStateBegan) {
+        HBLogDebug(@"Started Gesture");
         [self fadeMenuIn];
     } else if (recognizer.state == UIGestureRecognizerStateChanged) {
+        HBLogDebug(@"Gesture Moved");
         [_menuView touchMovedToPoint:touchPoint];
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
+        HBLogDebug(@"Gesture Ended");
         recognizer.enabled = NO;
         recognizer.enabled = YES;
 
         [self fadeMenuOutWithCompletion:^{
-          [_menuView touchEndedAtPoint:_previousLocationInView];
-        }]
+            [_menuView touchEndedAtPoint:_previousLocationInView];
+        }];
     }
 }
 

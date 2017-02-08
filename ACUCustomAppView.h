@@ -1,5 +1,5 @@
 @interface ACUCustomAppView : UIView {
-    UIView* _highlightingView;
+    UIView *_highlightingView;
 }
 @property (nonatomic, assign) BOOL isHighlighted;
 @property (nonatomic, strong) NSString *bundleIdentifier;

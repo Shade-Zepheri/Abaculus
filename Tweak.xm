@@ -1,4 +1,5 @@
 #import "headers.h"
+#import "ACUController.h"
 #import "ACUSettings.h"
 
 %hook SpringBoard

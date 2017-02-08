@@ -1,5 +1,6 @@
 #import "ACUCustomAppView.h"
 #import "ACUSettings.h"
+#import "headers.h"
 
 @implementation ACUCustomAppView
 
@@ -14,7 +15,7 @@
 
         UIImageView *iconImageView = [[UIImageView alloc] initWithImage:iconImage];
         iconImageView.frame = self.frame;
-        iconImageView.center = self.center
+        iconImageView.center = self.center;
         [self addSubview:iconImageView];
     }
 
@@ -26,7 +27,7 @@
         return;
     }
 
-    [UIView animateWithDuration:0.1 delay:0.0 options:nil animations:^{
+    [UIView animateWithDuration:0.1 animations:^{
         _highlightingView.alpha = 1.0;
     } completion:^(BOOL finished){
         if (finished) {
@@ -34,12 +35,13 @@
         }
     }];
 }
+
 - (void)unhighlightApp {
     if (!_isHighlighted) {
         return;
     }
 
-    [UIView animateWithDuration:0.1 delay:0.0 options:nil animations:^{
+    [UIView animateWithDuration:0.1 animations:^{
         _highlightingView.alpha = 0.0;
     } completion:^(BOOL finished){
         if (finished) {
@@ -47,3 +49,4 @@
         }
     }];
 }
+@end

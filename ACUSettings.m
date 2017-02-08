@@ -42,7 +42,7 @@
     CFRelease(appID);
 
     if (failed) {
-      _settings = [NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.shade.abaculus.plist"];
+      _settings = [NSDictionary dictionaryWithContentsOfFile:@"/User/Library/Preferences/com.shade.abaculus.plist"];
     }
 
     if (!_settings) {
