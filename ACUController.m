@@ -16,14 +16,80 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        HBLogDebug(@"Inited");
         _isVisible = NO;
 
         CGFloat x = CGRectGetMaxX([UIScreen mainScreen].bounds) - 50;
         CGRect frame = CGRectMake(x, 0, 50, CGRectGetMaxY([UIScreen mainScreen].bounds));
         _menuView = [[ACUMenuView alloc] initWithFrame:frame];
+
+        [self getContentView];
+
     }
 
     return self;
+}
+
+- (void)getContentView {
+    if (IN_SPRINGBOARD) {
+        [self getSpringBoardContent];
+    } else {
+        [self getAppContent];
+    }
+}
+
+- (void)getAppContent {
+    SBSceneManagerCoordinator *sceneManagerCoordinator = [NSClassFromString(@"SBSceneManagerCoordinator") sharedInstance];
+    FBSDisplay *mainDisplay = [NSClassFromString(@"FBDisplayManager") mainDisplay];
+
+    SBMainDisplaySceneManager* sceneManager = [sceneManagerCoordinator sceneManagerForDisplay:mainDisplay];
+
+    SBMainDisplaySceneLayoutViewController* layoutController = [sceneManager layoutController];
+    UIViewController* containerViewController = [layoutController _layoutElementControllerForLayoutRole:2];
+
+    //if containerViewController is nil, then that probably means the user was at the homescreen
+    //if so, the layout element view controller for that should be the main switcher view controller
+    if (!containerViewController) {
+        containerViewController = [NSClassFromString(@"SBMainSwitcherViewController") sharedInstance];
+    }
+
+    NSLog(@"containerViewController: %@", containerViewController);
+    NSLog(@"view: %@", containerViewController.view);
+
+    SBAppContainerView* view = (SBAppContainerView*)[containerViewController view];
+
+    _contentView = view;
+}
+
+- (void)getSpringBoardContent {
+    SBHomeScreenView* homescreenView = ((SBUIController*)[NSClassFromString(@"SBUIController") sharedInstance]).window;
+
+    _originalFrame = homescreenView.frame;
+
+    UIImageView* copyImageView = [[UIImageView alloc] initWithImage:[SNBMenuController snapshotOfView:homescreenView]];
+    UIView* contentView = [[UIView alloc] initWithFrame:copyImageView.frame];
+    //the HS screeenshot is transparent
+    //so we add the wallpaper before adding the HS screenshot
+    /*
+    SBWallpaperEffectView* wallpaperView = [[NSClassFromString(@"SBWallpaperEffectView") alloc] initWithWallpaperVariant:0];
+    wallpaperView.style = 6;
+    wallpaperView.frame = contentView.frame;
+    */
+
+    //wallpaperView.alpha = 0;
+
+    //get existing shared wallpaper view, or, homescreen wallpaper view if that doesn't exist
+    SBWallpaperController* wallpaperController = [NSClassFromString(@"SBWallpaperController") sharedInstance];
+    UIView* wallpaperView = ([wallpaperController valueForKey:@"_sharedWallpaperView"]) ?: [wallpaperController valueForKey:@"_homescreenWallpaperView"];
+    UIImageView* wallpaperCopyImageView = [[UIImageView alloc] initWithImage:[SNBMenuController snapshotOfView:wallpaperView]];
+
+    [contentView addSubview:wallpaperCopyImageView];
+    [contentView addSubview:copyImageView];
+
+    [homescreenView addSubview:contentView];
+
+    _contentView = contentView;
+
 }
 
 - (void)fadeMenuIn {
