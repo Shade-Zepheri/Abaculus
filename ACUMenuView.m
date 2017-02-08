@@ -1,5 +1,6 @@
 #import "ACUSettings.h"
 #import "ACUMenuView.h"
+#import "ACUCustomAppView.h"
 #import "headers.h"
 
 @implementation ACUMenuView
@@ -13,7 +14,7 @@
       [curvePath moveToPoint:CGPointMake(375,0)];
       [curvePath addCurveToPoint:CGPointMake(375, 1334) controlPoint1:CGPointMake(125, 445) controlPoint2:CGPointMake(125, 889)];
 
-      [self ]
+      [self layoutApps]
     }
   //Make Curve with UIBezierPath
 }
@@ -21,11 +22,36 @@
 - (void)layoutApps {
     NSArray *identifiers = [ACUSettings sharedSettings].favoriteApps;
     for (NSString *str in identifiers) {
-      SBApplication *app = [[%c(SBApplicationController) sharedInstance] applicationWithBundleIdentifier:str];
-      SBApplicationIcon *icon = [[[[%c(SBIconController) sharedInstance] homescreenIconViewMap] iconModel] applicationIconForBundleIdentifier:app.bundleIdentifier];
-      SBIconView *iconView = [[[%c(SBIconController) sharedInstance] homescreenIconViewMap] _iconViewForIcon:icon];
+        ACUCustomAppView *appView = [[ACUCustomAppView alloc] initWithBundleIdentifier:str size:CGSizeMake(40, 40)];
+        //appView.center determine where to place along curvePath
+        [self addSubview:appView];
+        [_appViews addObject:appView];
     }
-    iconView.frame = CGRectMake(0, 0, 40, 40);
 }
 
-- (CGPoint)centerforIcon
+- (CGPoint)centerforIcon {
+    //Somehow determine where to place along curvePath;
+}
+
+- (void)touchMovedToPoint:(CGPoint)point {
+    for (ACUCustomAppView *appView in _appViews) {
+        CGRect convertedFrame = [self convertRect:appView.frame fromView:appView.superview];
+        if (CGRectContainsPoint(convertedFrame, point)) {
+            [appView highlightApp];
+        }
+        else {
+            [appView unhighlightApp];
+        }
+    }
+}
+- (void)touchEndedAtPoint:(CGPoint)point {
+    for (ACUCustomAppView *appView in _appViews) {
+        CGRect convertedFrame = [self convertRect:appView.frame fromView:appView.superview];
+        if (appView.isHighlighted) {
+            NSString *bundleIdentifier = appView.bundleIdentifier;
+            [[UIApplication sharedApplication] launchApplicationWithIdentifier:bundleIdentifier suspended:NO];
+        }
+    }
+}
+
+@end

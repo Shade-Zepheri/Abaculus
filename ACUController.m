@@ -1,9 +1,10 @@
 #import "ACUController.h"
+#import "ACUSettings.h"
 #import "headers.h"
 
 @implementation ACUController
 
-+ (instancetype)sharedSettings {
++ (instancetype)sharedInstance {
     static ACUController *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -25,7 +26,7 @@
   if (_isVisible) {
     return;
   }
-  [UIView animateWithDuration:0.7 animations:^{
+  [UIView animateWithDuration:0.3 animations:^{
       _menuView.alpha = 1;
   } completion:^(BOOL finished){
       if (finished) {
@@ -34,20 +35,12 @@
   }];
 }
 
-- (void)fadeOpacityForPosition:(CGPoint)point {
-  if ([_menuView.frame containsPoint:point]) {
-    return;
-  }
-  CGFloat x = point.x
-
-}
-
 - (void)fadeMenuOutWithCompletion:(void(^)(void))completion {
   if (!_isVisible) {
     return;
   }
 
-  [UIView animateWithDuration:0.2 delay:0.0 options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseOut) animations:^{
+  [UIView animateWithDuration:0.3 animations:^{
       _menuView.alpha = 0;
   } completion:^(BOOL finished){
       if (finished) {
@@ -57,8 +50,11 @@
   }];
 }
 
-
 - (void)_gestureStateChanged:(UIGestureRecognizer*)recognizer {
+    if (![ACUSettings sharedSettings].enabled) {
+      return
+    }
+    
     CGPoint touchPoint = [recognizer locationInView:recognizer.view];
     if (!CGPointEqualToPoint(touchLocation, CGPointZero)) {
         _previousLocationInView = touchPoint;
@@ -67,7 +63,6 @@
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         [self fadeMenuIn];
     } else if (recognizer.state == UIGestureRecognizerStateChanged) {
-        [self fadeOpacityForPosition:touchPoint]
         [_menuView touchMovedToPoint:touchPoint];
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
         recognizer.enabled = NO;

@@ -4,7 +4,7 @@ CFLAGS = -fobjc-arc -O2
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = Abaculus
-Abaculus_FILES = Tweak.xm
+Abaculus_FILES = Tweak.xm $(wildcard *.m)
 Abaculus_FRAMEWORKS = UIKit
 
 include $(THEOS_MAKE_PATH)/tweak.mk
