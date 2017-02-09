@@ -48,10 +48,16 @@
 
 - (CGPoint)centerforIcon {
     //angles 36 72 108 144 180
-    CGFloat t = atan(50 * tan(135 * M_PI/180) / 333.5);
+    CGFloat angle = 90;
+    CGFloat t;
+    if (90.0 <= angle <= 180.0) {
+      t = atan(50 * tan(angle / 180 * M_PI) / 333.5) + M_PI;
+    } else {
+      t = atan(50 * tan(angle / 180 * M_PI) / 333.5);
+    }
 
-    CGFloat x = -50 + 50 * cos(t * M_PI/180);
-    CGFloat y = 333.5 + 333.5 * sin(t * M_PI/180);
+    CGFloat x = 50 + 50 * cos(t);
+    CGFloat y = 333.5 + 333.5 * sin(t);
 
     return CGPointMake(x, y);
 }
