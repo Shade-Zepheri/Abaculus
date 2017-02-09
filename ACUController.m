@@ -22,8 +22,9 @@
         CGRect frame = CGRectMake(kScreenWidth - 50, 0, 50, kScreenHeight);
         _menuView = [[ACUMenuView alloc] initWithFrame:frame];
 
-        ACUWindow *window = [[ACUWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        [window addSubview:_menuView];
+        _window = [[ACUWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        [_window addSubview:_menuView];
+        HBLogDebug(@"Inited");
     }
 
     return self;

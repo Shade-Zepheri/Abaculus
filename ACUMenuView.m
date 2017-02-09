@@ -8,19 +8,16 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-      UIBezierPath *curvePath = [UIBezierPath bezierPath];
-      [curvePath moveToPoint:CGPointMake(CGRectGetMaxX([UIScreen mainScreen].bounds), 0)];
-      [curvePath addCurveToPoint:CGPointMake(375, 1334) controlPoint1:CGPointMake(125, 445) controlPoint2:CGPointMake(125, 889)];
-      UIColor *color = [UIColor whiteColor];
-      [color setFill];
-      [color setStroke];
-      [curvePath fill];
-      [curvePath stroke];
+      CAShapeLayer *circleLayer = [CAShapeLayer layer];
+      [circleLayer setPath:[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 100, 667)].CGPath];
+      [circleLayer setStrokeColor:[UIColor whiteColor].CGColor];
+      [circleLayer setFillColor:[UIColor whiteColor].CGColor];
+
+      [self.layer addSublayer:circleLayer];
 
       self.clipsToBounds = NO;
-      self.alpha = 0;
       self.layer.masksToBounds = NO;
-      self.layer.shadowOffset = CGSizeMake(-15, 0);
+      self.layer.shadowOffset = CGSizeMake(-5, -5);
       self.layer.shadowRadius = 5;
       self.layer.shadowOpacity = 0.5;
 

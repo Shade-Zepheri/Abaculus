@@ -1,14 +1,12 @@
 #import "ACUMenuView.h"
+#import "ACUWindow.h"
 
 @interface ACUController : NSObject {
     BOOL _isVisible;
     CGPoint _previousLocationInView;
-    UIView* _contentViewContainerView;
-    UIView* _contentView;
-    UIView* _contentViewShadowView;
-    CGRect _originalFrame;
 }
 @property (nonatomic, strong) ACUMenuView *menuView;
+@property (nonatomic, strong) ACUWindow *window;
 + (instancetype)sharedInstance;
 - (void)fadeMenuIn;
 - (void)fadeMenuOutWithCompletion:(void(^)(void))completion;
