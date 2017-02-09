@@ -13,7 +13,7 @@
 %end
 
 void reloadSettings() {
-  [[ACUSettings sharedSettings] reloadSettings];
+    [[ACUSettings sharedSettings] reloadSettings];
 }
 
 %ctor {

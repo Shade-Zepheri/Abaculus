@@ -2,6 +2,9 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+#define kScreenWidth CGRectGetMaxX([UIScreen mainScreen].bounds)
+#define kScreenHeight CGRectGetMaxY([UIScreen mainScreen].bounds)
+
 @interface FBSystemGestureManager : NSObject <UIGestureRecognizerDelegate>
 +(id)sharedInstance;
 -(void)addGestureRecognizer:(id)arg1 toDisplay:(id)arg2;
@@ -31,4 +34,8 @@
 @interface SBIconController : UIViewController
 @property (nonatomic,readonly) SBIconViewMap * homescreenIconViewMap;
 + (id)sharedInstance;
+@end
+
+@interface UIWindow (Private)
+- (void)_setSecure:(BOOL)secure;
 @end
