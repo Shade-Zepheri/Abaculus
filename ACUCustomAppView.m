@@ -10,7 +10,7 @@
         _bundleIdentifier = bundleIdentifier;
         _isHighlighted = NO;
 
-        SBIcon *icon = [[[[%c(SBIconController) sharedInstance] homescreenIconViewMap] iconModel] applicationIconForBundleIdentifier:bundleIdentifier];
+        SBIcon *icon = [[[[objc_getClass("SBIconController") sharedInstance] homescreenIconViewMap] iconModel] applicationIconForBundleIdentifier:bundleIdentifier];
         UIImage *iconImage = [icon generateIconImage:2];
 
         UIImageView *iconImageView = [[UIImageView alloc] initWithImage:iconImage];

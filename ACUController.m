@@ -24,7 +24,6 @@
 
         _window = [[ACUWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         [_window addSubview:_menuView];
-        HBLogDebug(@"Inited");
     }
 
     return self;
@@ -34,7 +33,7 @@
   if (_isVisible) {
     return;
   }
-  [UIView animateWithDuration:0.3 animations:^{
+  [UIView animateWithDuration:0.5 animations:^{
       _menuView.alpha = 1;
   } completion:^(BOOL finished){
       if (finished) {
@@ -48,7 +47,7 @@
     return;
   }
 
-  [UIView animateWithDuration:0.3 animations:^{
+  [UIView animateWithDuration:0.5 animations:^{
       _menuView.alpha = 0;
   } completion:^(BOOL finished){
       if (finished) {
@@ -69,13 +68,10 @@
     }
 
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        HBLogDebug(@"Started Gesture");
         [self fadeMenuIn];
     } else if (recognizer.state == UIGestureRecognizerStateChanged) {
-        HBLogDebug(@"Gesture Moved");
         [_menuView touchMovedToPoint:touchPoint];
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
-        HBLogDebug(@"Gesture Ended");
         recognizer.enabled = NO;
         recognizer.enabled = YES;
 

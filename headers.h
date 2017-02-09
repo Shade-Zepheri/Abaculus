@@ -39,3 +39,7 @@
 @interface UIWindow (Private)
 - (void)_setSecure:(BOOL)secure;
 @end
+
+@interface SBIconView : UIView
++ (CGSize)defaultIconSize;
+@end
