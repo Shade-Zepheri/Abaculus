@@ -51,20 +51,18 @@
 
     _enabled = ![_settings objectForKey:@"enabled"] ? YES : [[_settings objectForKey:@"enabled"] boolValue];
     _showAppLabels = ![_settings objectForKey:@"showAppLabels"] ? NO : [[_settings objectForKey:@"showAppLabels"] boolValue];
-  }
-}
 
-- (NSMutableArray*)favoriteApps {
-	NSMutableArray *favorites = [[NSMutableArray alloc] init];
-	for (NSString *key in _settings.allKeys) {
-		if ([key hasPrefix:@"Favorites-"]) {
-			NSString *ident = [key substringFromIndex:10];
-			if ([_settings[key] boolValue]) {
-				[favorites addObject:ident];
-			}
-		}
-	}
-	return favorites;
+    NSMutableArray *favorites = [[NSMutableArray alloc] init];
+  	for (NSString *key in _settings.allKeys) {
+  		if ([key hasPrefix:@"Favorites-"]) {
+  			NSString *ident = [key substringFromIndex:10];
+  			if ([_settings[key] boolValue]) {
+  				[favorites addObject:ident];
+  			}
+  		}
+  	}
+    _favoriteApps = favorites;
+  }
 }
 
 @end

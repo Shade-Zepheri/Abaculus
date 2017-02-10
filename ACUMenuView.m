@@ -12,7 +12,6 @@
       [circleLayer setPath:[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 100, 667)].CGPath];
       [circleLayer setStrokeColor:[UIColor whiteColor].CGColor];
       [circleLayer setFillColor:[UIColor whiteColor].CGColor];
-
       [self.layer addSublayer:circleLayer];
 
       self.alpha = 0;
@@ -29,8 +28,8 @@
 }
 
 - (void)layoutApps {
-    NSMutableArray *identifiers = [[ACUSettings sharedSettings] favoriteApps];
-    HBLogDebug(@"%@", identifiers);
+    HBLogDebug(@"layoutApps");
+    NSMutableArray *identifiers = [ACUSettings sharedSettings].favoriteApps;
     CGSize size = [objc_getClass("SBIconView") defaultIconSize];
     size.height = size.width;
     for (int i = 0; i < identifiers.count; i++) {
@@ -38,7 +37,9 @@
       ACUCustomAppView *appView = [[ACUCustomAppView alloc] initWithBundleIdentifier:bundleID size:size];
       appView.center = [self centerforIcon:i];
       [self addSubview:appView];
+      HBLogDebug(@"addObject");
       [_appViews addObject:appView];
+      HBLogDebug(@"addObject completed");
     }
 }
 
@@ -74,9 +75,13 @@
 }
 
 - (void)touchMovedToPoint:(CGPoint)point {
+    HBLogDebug(@"touchMovedToPoint");
     for (ACUCustomAppView *appView in _appViews) {
+        HBLogDebug(@"converting frames");
         CGRect convertedFrame = [self convertRect:appView.frame fromView:appView.superview];
+        HBLogDebug(@"Checking points");
         if (CGRectContainsPoint(convertedFrame, point)) {
+            HBLogDebug(@"Highlighting App");
             [appView highlightApp];
         } else {
             [appView unhighlightApp];
@@ -85,6 +90,7 @@
 }
 
 - (void)touchEndedAtPoint:(CGPoint)point {
+    HBLogDebug(@"%@", _appViews);
     for (ACUCustomAppView *appView in _appViews) {
         if (appView.isHighlighted) {
             NSString *bundleIdentifier = appView.bundleIdentifier;
