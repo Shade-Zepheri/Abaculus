@@ -32,19 +32,104 @@
 		</dict>
 		<dict>
 			<key>cell</key>
-			<string>PSLinkCell</string>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.shade.abaculus</string>
+			<key>PostNotification</key>
+			<string>com.shade.abaculus/ReloadPrefs</string>
+			<key>key</key>
+			<string>showAppLabels</string>
 			<key>label</key>
-			<string>Options</string>
-			<key>detail</key>
-			<string>ACUOptionsController</string>
+			<string>Show App Labels</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
 		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSLinkCell</string>
+			<key>bundle</key>
+			<string>AppList</string>
+			<key>isController</key>
+			<string>1</string>
 			<key>label</key>
-			<string>About</string>
-			<key>detail</key>
-			<string>ACUAboutController</string>
+			<string>Favorite Apps</string>
+			<key>ALSettingsPath</key>
+			<string>/var/mobile/Library/Preferences/com.shade.abaculus.plist</string>
+			<key>ALSettingsKeyPrefix</key>
+			<string>Favorites-</string>
+			<key>ALChangeNotification</key>
+			<string>com.shade.abaculus/ReloadPrefs</string>
+			<key>PostNotification</key>
+			<string>com.shade.abaculus/ReloadPrefs</string>
+			<key>ALSingleEnabledMode</key>
+			<string>0</string>
+			<key>ALAllowsSelection</key>
+      <string>1</string>
+			<key>ALSectionDescriptors</key>
+			<array>
+				<dict>
+					<key>title</key>
+					<string>System Applications</string>
+					<key>predicate</key>
+					<string>isSystemApplication = TRUE</string>
+					<key>cell-class-name</key>
+					<string>ALSwitchCell</string>
+					<key>icon-size</key>
+					<string>29</string>
+					<key>suppress-hidden-apps</key>
+					<string>1</string>
+				</dict>
+				<dict>
+					<key>title</key>
+					<string>User Applications</string>
+					<key>predicate</key>
+					<string>isSystemApplication = FALSE</string>
+					<key>cell-class-name</key>
+					<string>ALSwitchCell</string>
+					<key>icon-size</key>
+					<string>29</string>
+					<key>suppress-hidden-apps</key>
+					<string>1</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>openTwitter</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>icon</key>
+			<string>twitter.png</string>
+			<key>label</key>
+			<string>Twitter</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>sendEmail</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>icon</key>
+			<string>mail.png</string>
+			<key>label</key>
+			<string>Email Support</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>openGithub</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>icon</key>
+			<string>github.png</string>
+			<key>label</key>
+			<string>Source Code</string>
 		</dict>
 	</array>
 	<key>title</key>

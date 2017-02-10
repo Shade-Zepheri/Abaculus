@@ -29,14 +29,16 @@
 }
 
 - (void)layoutApps {
-    //NSArray *identifiers = [ACUSettings sharedSettings].favoriteApps;
+    NSMutableArray *identifiers = [[ACUSettings sharedSettings] favoriteApps];
+    HBLogDebug(@"%@", identifiers);
     CGSize size = [objc_getClass("SBIconView") defaultIconSize];
     size.height = size.width;
-    for (int i = 0; i < 5; i++) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-        view.backgroundColor = [UIColor blackColor];
-        view.center = [self centerforIcon:i];
-        [self addSubview:view];
+    for (int i = 0; i < identifiers.count; i++) {
+      NSString *bundleID = identifiers[i];
+      ACUCustomAppView *appView = [[ACUCustomAppView alloc] initWithBundleIdentifier:bundleID size:size];
+      appView.center = [self centerforIcon:i];
+      [self addSubview:appView];
+      [_appViews addObject:appView];
     }
 }
 

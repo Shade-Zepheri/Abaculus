@@ -10,6 +10,13 @@
         _bundleIdentifier = bundleIdentifier;
         _isHighlighted = NO;
 
+        _highlightingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.height*1.15, size.height*1.15)];
+        _highlightingView.center = self.center;
+        _highlightingView.layer.cornerRadius = 13;
+        _highlightingView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+        _highlightingView.alpha = 0;
+        [self addSubview:_highlightingView];
+
         SBIcon *icon = [[[[objc_getClass("SBIconController") sharedInstance] homescreenIconViewMap] iconModel] applicationIconForBundleIdentifier:bundleIdentifier];
         UIImage *iconImage = [icon generateIconImage:2];
 

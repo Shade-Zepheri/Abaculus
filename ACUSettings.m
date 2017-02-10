@@ -6,7 +6,7 @@
     static ACUSettings *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [self new];
+        sharedInstance = [[self alloc] init];
     });
     return sharedInstance;
 }
@@ -42,7 +42,7 @@
     CFRelease(appID);
 
     if (failed) {
-      _settings = [NSDictionary dictionaryWithContentsOfFile:@"/User/Library/Preferences/com.shade.abaculus.plist"];
+      _settings = [NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.shade.abaculus.plist"];
     }
 
     if (!_settings) {
@@ -51,21 +51,20 @@
 
     _enabled = ![_settings objectForKey:@"enabled"] ? YES : [[_settings objectForKey:@"enabled"] boolValue];
     _showAppLabels = ![_settings objectForKey:@"showAppLabels"] ? NO : [[_settings objectForKey:@"showAppLabels"] boolValue];
-
-    NSMutableArray *favorites = [NSMutableArray new];
-  	for (NSString *key in [_settings allKeys]) {
-  		NSString* prefix = @"Favorites-";
-  		if ([key hasPrefix:prefix]) {
-  			NSString *trimmedBundleID = [key substringFromIndex:prefix.length];
-
-  			if ([[_settings objectForKey:key] boolValue]) {
-  				[favorites addObject:trimmedBundleID];
-  			}
-  		}
-  	}
-    _favoriteApps = [NSArray arrayWithArray:favorites];
-
   }
+}
+
+- (NSMutableArray*)favoriteApps {
+	NSMutableArray *favorites = [[NSMutableArray alloc] init];
+	for (NSString *key in _settings.allKeys) {
+		if ([key hasPrefix:@"Favorites-"]) {
+			NSString *ident = [key substringFromIndex:10];
+			if ([_settings[key] boolValue]) {
+				[favorites addObject:ident];
+			}
+		}
+	}
+	return favorites;
 }
 
 @end

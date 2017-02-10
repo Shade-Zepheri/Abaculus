@@ -4,9 +4,3 @@
 
 @interface ACURootListController : PSListController
 @end
-
-@interface ACUOptionsController : PSListController
-@end
-
-@interface ACUAboutController : PSListController
-@end
