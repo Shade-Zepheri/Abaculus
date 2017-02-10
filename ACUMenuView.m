@@ -29,26 +29,41 @@
 }
 
 - (void)layoutApps {
-    NSArray *identifiers = [ACUSettings sharedSettings].favoriteApps;
-    CGSize size = [objc_getClass(SBIconView) defaultIconSize];
-    for (int 1 = 0; i < identifiers.count; i++) {
-        NSString *bundleID = identifiers[i];
-        ACUCustomAppView *appView = [[ACUCustomAppView alloc] initWithBundleIdentifier:str size:size];
-        appView.center = [self centerforIcon:i];
-        [self addSubview:appView];
-        [_appViews addObject:appView];
+    //NSArray *identifiers = [ACUSettings sharedSettings].favoriteApps;
+    CGSize size = [objc_getClass("SBIconView") defaultIconSize];
+    size.height = size.width;
+    for (int i = 0; i < 5; i++) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+        view.backgroundColor = [UIColor blackColor];
+        view.center = [self centerforIcon:i];
+        [self addSubview:view];
     }
 }
 
 - (CGPoint)centerforIcon:(NSInteger)index {
-    //angles 120 150 180 210 240
-    CGFloat angle = (index + 1) * 60;
-    CGFloat t;
-    if (90.0 <= angle <= 180.0) {
-      t = atan(50 * tan(angle / 180 * M_PI) / 333.5) + M_PI;
-    } else {
-      t = atan(50 * tan(angle / 180 * M_PI) / 333.5) - M_PI;
+    CGFloat angle;
+    //angles 100 110 180 250 260
+    switch (index) {
+      case 0:
+        angle = 97;
+        break;
+      case 1:
+        angle = 110;
+        break;
+      case 2:
+        angle = 180;
+        break;
+      case 3:
+        angle = 250;
+        break;
+      case 4:
+        angle = 263;
+        break;
+      default:
+        angle = 90;
+        break;
     }
+    CGFloat t = atan(50 * tan(M_PI * angle / 180) / 333.5) - M_PI;
 
     CGFloat x = 50 + 50 * cos(t);
     CGFloat y = 333.5 + 333.5 * sin(t);
