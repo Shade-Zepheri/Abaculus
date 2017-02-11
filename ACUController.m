@@ -51,6 +51,7 @@
       _menuView.alpha = 0;
   } completion:^(BOOL finished){
       if (finished) {
+          [_menuView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
           _isVisible = NO;
           completion();
       }
@@ -68,6 +69,7 @@
     }
 
     if (recognizer.state == UIGestureRecognizerStateBegan) {
+        [_menuView layoutApps];
         [self fadeMenuIn];
     } else if (recognizer.state == UIGestureRecognizerStateChanged) {
         [_menuView touchMovedToPoint:touchPoint];

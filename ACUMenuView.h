@@ -3,6 +3,7 @@
 @interface ACUMenuView : UIView
 @property (nonatomic, strong) NSMutableArray *appViews;
 - (instancetype)initWithFrame:(CGRect)frame;
+- (void)layoutApps;
 - (void)touchMovedToPoint:(CGPoint)point;
 - (void)touchEndedAtPoint:(CGPoint)point;
 @end
