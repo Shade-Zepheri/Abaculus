@@ -21,6 +21,8 @@
       self.layer.shadowRadius = 5;
       self.layer.shadowOpacity = 0.5;
 
+      _appViews = [[NSMutableArray alloc] init];
+
       [self layoutApps];
     }
 
@@ -28,7 +30,6 @@
 }
 
 - (void)layoutApps {
-    HBLogDebug(@"layoutApps");
     NSMutableArray *identifiers = [ACUSettings sharedSettings].favoriteApps;
     CGSize size = [objc_getClass("SBIconView") defaultIconSize];
     size.height = size.width;
@@ -37,9 +38,7 @@
       ACUCustomAppView *appView = [[ACUCustomAppView alloc] initWithBundleIdentifier:bundleID size:size];
       appView.center = [self centerforIcon:i];
       [self addSubview:appView];
-      HBLogDebug(@"addObject");
       [_appViews addObject:appView];
-      HBLogDebug(@"addObject completed");
     }
 }
 
@@ -75,13 +74,9 @@
 }
 
 - (void)touchMovedToPoint:(CGPoint)point {
-    HBLogDebug(@"touchMovedToPoint");
     for (ACUCustomAppView *appView in _appViews) {
-        HBLogDebug(@"converting frames");
-        CGRect convertedFrame = [self convertRect:appView.frame fromView:appView.superview];
-        HBLogDebug(@"Checking points");
+        CGRect convertedFrame = [self convertRect:appView.frame toView:appView.superview.superview];
         if (CGRectContainsPoint(convertedFrame, point)) {
-            HBLogDebug(@"Highlighting App");
             [appView highlightApp];
         } else {
             [appView unhighlightApp];
@@ -90,7 +85,6 @@
 }
 
 - (void)touchEndedAtPoint:(CGPoint)point {
-    HBLogDebug(@"%@", _appViews);
     for (ACUCustomAppView *appView in _appViews) {
         if (appView.isHighlighted) {
             NSString *bundleIdentifier = appView.bundleIdentifier;
