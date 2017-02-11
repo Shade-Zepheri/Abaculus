@@ -19,7 +19,7 @@
     if (self) {
         _isVisible = NO;
 
-        CGRect frame = CGRectMake(kScreenWidth - 50, 0, 50, kScreenHeight);
+        CGRect frame = CGRectMake(kScreenWidth - 42, 0, 50, kScreenHeight);
         _menuView = [[ACUMenuView alloc] initWithFrame:frame];
 
         _window = [[ACUWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

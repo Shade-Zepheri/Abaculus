@@ -10,7 +10,7 @@
         _bundleIdentifier = bundleIdentifier;
         _isHighlighted = NO;
 
-        _highlightingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.height*1.15, size.height*1.15)];
+        _highlightingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.height * 0.9, size.height * 0.9)];
         _highlightingView.center = self.center;
         _highlightingView.layer.cornerRadius = 13;
         _highlightingView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
@@ -21,7 +21,7 @@
         UIImage *iconImage = [icon generateIconImage:2];
 
         UIImageView *iconImageView = [[UIImageView alloc] initWithImage:iconImage];
-        iconImageView.frame = self.frame;
+        iconImageView.frame = CGRectMake(0, 0, size.width * 0.7, size.height * 0.7);
         iconImageView.center = self.center;
         [self addSubview:iconImageView];
     }

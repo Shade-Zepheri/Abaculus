@@ -50,16 +50,22 @@
         angle = 97;
         break;
       case 1:
-        angle = 110;
+        angle = 104;
         break;
       case 2:
-        angle = 180;
+        angle = 119;
         break;
       case 3:
-        angle = 250;
+        angle = 180;
         break;
       case 4:
-        angle = 263;
+        angle = 241;
+        break;
+      case 5:
+        angle = 257;
+        break;
+      case 6:
+        angle = 264;
         break;
       default:
         angle = 90;
