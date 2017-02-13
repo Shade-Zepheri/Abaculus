@@ -43,3 +43,12 @@
 @interface SBIconView : UIView
 + (CGSize)defaultIconSize;
 @end
+
+@interface SBAppSwitcherModel : NSObject
++ (id)sharedInstance;
+- (id)mainSwitcherDisplayItems;
+@end
+
+@interface SBDisplayItem : NSObject
+@property (nonatomic,copy,readonly) NSString * displayIdentifier;
+@end
