@@ -38,6 +38,13 @@
     return appIdentifiers;
 }
 
+- (NSString*)lastAppBundleIdentifier {
+    NSMutableArray *switcherItems = [[objc_getClass("SBAppSwitcherModel") sharedInstance] mainSwitcherDisplayItems];
+    SBDisplayItem *lastAppItem = switcherItems[1];
+
+   return lastAppItem.displayIdentifier;
+ }
+
 - (void)layoutApps {
     NSMutableArray *identifiers = [self appIdentifiers];
     CGSize size = [objc_getClass("SBIconView") defaultIconSize];
