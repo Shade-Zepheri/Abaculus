@@ -50,7 +50,6 @@
     }
 
     _enabled = ![_settings objectForKey:@"enabled"] ? YES : [[_settings objectForKey:@"enabled"] boolValue];
-    _showAppLabels = ![_settings objectForKey:@"showAppLabels"] ? NO : [[_settings objectForKey:@"showAppLabels"] boolValue];
     _numberOfApps = ![_settings objectForKey:@"numberOfApps"] ? 7 : [[_settings objectForKey:@"numberOfApps"] intValue];
 
     NSMutableArray *favorites = [[NSMutableArray alloc] init];
