@@ -147,6 +147,7 @@
         if (appView.isHighlighted) {
             NSString *bundleIdentifier = appView.bundleIdentifier;
             [[UIApplication sharedApplication] launchApplicationWithIdentifier:bundleIdentifier suspended:NO];
+            [_appViews removeAllObjects];
             break;
         }
     }
