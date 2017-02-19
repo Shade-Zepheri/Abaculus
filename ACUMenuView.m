@@ -35,6 +35,13 @@
       [appIdentifiers addObject:identifier];
     }
 
+    if ([ACUSettings sharedSettings].useLastApp) {
+      if (![appIdentifiers containsObject:[self lastAppBundleIdentifier]]) {
+        [appIdentifiers removeObjectAtIndex:0];
+        [appIdentifiers insertObject:[self lastAppBundleIdentifier] atIndex:0];
+      }
+    }
+
     return appIdentifiers;
 }
 
@@ -42,8 +49,8 @@
     NSMutableArray *switcherItems = [[objc_getClass("SBAppSwitcherModel") sharedInstance] mainSwitcherDisplayItems];
     SBDisplayItem *lastAppItem = switcherItems[1];
 
-   return lastAppItem.displayIdentifier;
- }
+    return lastAppItem.displayIdentifier;
+}
 
 - (void)layoutApps {
     NSMutableArray *identifiers = [self appIdentifiers];
@@ -140,6 +147,7 @@
         if (appView.isHighlighted) {
             NSString *bundleIdentifier = appView.bundleIdentifier;
             [[UIApplication sharedApplication] launchApplicationWithIdentifier:bundleIdentifier suspended:NO];
+            break;
         }
     }
 }
