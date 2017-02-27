@@ -17,9 +17,14 @@
         _highlightingView.alpha = 0;
         [self addSubview:_highlightingView];
 
-        SBIcon *icon = [[[[objc_getClass("SBIconController") sharedInstance] homescreenIconViewMap] iconModel] applicationIconForBundleIdentifier:bundleIdentifier];
-        UIImage *iconImage = [icon generateIconImage:2];
+        SBIcon *icon = nil;
+        if ([objc_getClass("SBIconViewMap") respondsToSelector:@selector(homescreenMap)]) {
+    			icon = [[[objc_getClass("SBIconViewMap") homescreenMap] iconModel] applicationIconForBundleIdentifier:bundleIdentifier];
+    		} else {
+    			icon = [[[[objc_getClass("SBIconController") sharedInstance] homescreenIconViewMap] iconModel] applicationIconForBundleIdentifier:bundleIdentifier];
+    		}
 
+        UIImage *iconImage = [icon generateIconImage:2];
         UIImageView *iconImageView = [[UIImageView alloc] initWithImage:iconImage];
         iconImageView.frame = CGRectMake(0, 0, size.width * 0.7, size.height * 0.7);
         iconImageView.center = self.center;

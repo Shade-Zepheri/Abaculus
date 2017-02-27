@@ -30,7 +30,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>footerText</key>
-			<string>When using last app option, Abaculus will only use 4/6 of the favorite apps plus the last used app.</string>
+			<string>When using last app option, Abaculus will only use 4/6 of the favorite apps plus the last used app. Still select five or seven apps though.</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -124,14 +124,12 @@
 			<string>PSGroupCell</string>
 		</dict>
 		<dict>
-			<key>action</key>
-			<string>openTwitter</string>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>icon</key>
-			<string>twitter.png</string>
+			<key>cellClass</key>
+			<string>HBTwitterCell</string>
 			<key>label</key>
-			<string>Twitter</string>
+			<string>Shade Zepheri</string>
+			<key>user</key>
+			<string>shadezepheri</string>
 		</dict>
 		<dict>
 			<key>action</key>

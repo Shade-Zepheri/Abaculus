@@ -21,6 +21,8 @@
       self.layer.shadowRadius = 5;
       self.layer.shadowOpacity = 0.5;
 
+      self.center = CGPointMake(kScreenWidth - 17, kScreenHeight / 2);
+
       _appViews = [[NSMutableArray alloc] init];
     }
 
@@ -29,15 +31,22 @@
 
 - (NSMutableArray*)appIdentifiers {
     NSMutableArray *appIdentifiers = [[NSMutableArray alloc] init];
-    NSMutableArray *oldIdentifiers = [ACUSettings sharedSettings].favoriteApps;
-    for (int i = 0; i < [ACUSettings sharedSettings].numberOfApps; i++) {
-      NSString *identifier = oldIdentifiers[i];
-      [appIdentifiers addObject:identifier];
+    NSMutableArray *favsIdentifiers = [ACUSettings sharedSettings].favoriteApps;
+    if (0 < favsIdentifiers.count && favsIdentifiers.count == [ACUSettings sharedSettings].numberOfApps) {
+      for (int i = 0; i < [ACUSettings sharedSettings].numberOfApps; i++) {
+        NSString *identifier = favsIdentifiers[i];
+        [appIdentifiers addObject:identifier];
+      }
     }
 
     if ([ACUSettings sharedSettings].useLastApp) {
-      if (![appIdentifiers containsObject:[self lastAppBundleIdentifier]]) {
+      if (![appIdentifiers containsObject:[self lastAppBundleIdentifier]] && 0 < appIdentifiers.count) {
         [appIdentifiers removeObjectAtIndex:0];
+      }
+
+      if ([appIdentifiers count] == 0) {
+        [appIdentifiers addObject:[self lastAppBundleIdentifier]];
+      } else {
         [appIdentifiers insertObject:[self lastAppBundleIdentifier] atIndex:0];
       }
     }
@@ -67,7 +76,7 @@
 }
 
 - (NSInteger)angleForIndex:(NSInteger)index {
-    CGFloat angle;
+    NSInteger angle;
     if ([ACUSettings sharedSettings].numberOfApps == 5) {
       //angles 100 110 180 250 260
       switch (index) {

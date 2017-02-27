@@ -29,6 +29,8 @@
 
 @interface SBIconViewMap : NSObject
 @property (nonatomic,readonly) SBIconModel * iconModel;
++ (SBIconViewMap *)switcherMap;
++ (SBIconViewMap *)homescreenMap;
 @end
 
 @interface SBIconController : UIViewController
