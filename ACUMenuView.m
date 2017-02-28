@@ -41,13 +41,13 @@
 
     if ([ACUSettings sharedSettings].useLastApp) {
       if (![appIdentifiers containsObject:[self lastAppBundleIdentifier]] && 0 < appIdentifiers.count) {
-        [appIdentifiers removeObjectAtIndex:0];
+        [appIdentifiers removeObjectAtIndex:3];
+        [appIdentifiers insertObject:[self lastAppBundleIdentifier] atIndex:3];
+        return appIdentifiers;
       }
 
       if ([appIdentifiers count] == 0) {
         [appIdentifiers addObject:[self lastAppBundleIdentifier]];
-      } else {
-        [appIdentifiers insertObject:[self lastAppBundleIdentifier] atIndex:0];
       }
     }
 

@@ -54,3 +54,8 @@
 @interface SBDisplayItem : NSObject
 @property (nonatomic,copy,readonly) NSString * displayIdentifier;
 @end
+
+@interface UIKeyboard : UIView
++ (id)activeKeyboard;
+- (BOOL)isActive;
+@end

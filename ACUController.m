@@ -59,7 +59,7 @@
 }
 
 - (void)_gestureStateChanged:(UIGestureRecognizer*)recognizer {
-    if (![ACUSettings sharedSettings].enabled) {
+    if (![ACUSettings sharedSettings].enabled || [[UIKeyboard activeKeyboard] isActive]) {
       return;
     }
 
