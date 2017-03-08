@@ -50,6 +50,7 @@
     }
 
     _enabled = ![_settings objectForKey:@"enabled"] ? YES : [[_settings objectForKey:@"enabled"] boolValue];
+    _keyboardDisables = ![_settings objectForKey:@"keyboardDisables"] ? YES : [[_settings objectForKey:@"keyboardDisables"] boolValue];
     _numberOfApps = ![_settings objectForKey:@"numberOfApps"] ? 7 : [[_settings objectForKey:@"numberOfApps"] intValue];
     _useLastApp = ![_settings objectForKey:@"lastApp"] ? NO : [[_settings objectForKey:@"lastApp"] boolValue];
 
