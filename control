@@ -1,7 +1,7 @@
 Package: com.shade.abaculus
 Name: Abaculus
 Depends: mobilesubstrate, preferenceloader, applist, ws.hbang.common
-Version: 0.1
+Version: 0.2
 Architecture: iphoneos-arm
 Description: An elegant App Launcher
 Maintainer: Shade Zepheri <ziroalpha@gmail.com>

@@ -32,12 +32,8 @@
 	self.table.tableHeaderView.frame = frame;
 }
 
-- (void)sendEmail{
+- (void)sendEmail {
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:ziroalpha@gmail.com?subject=Abaculus"]];
-}
-
-- (void)openGithub {
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/Shade-Zepheri/Abaculus"]];
 }
 
 @end
