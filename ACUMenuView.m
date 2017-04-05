@@ -8,22 +8,24 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-      CAShapeLayer *circleLayer = [CAShapeLayer layer];
-      [circleLayer setPath:[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 100, 667)].CGPath];
-      [circleLayer setStrokeColor:[UIColor whiteColor].CGColor];
-      [circleLayer setFillColor:[UIColor whiteColor].CGColor];
-      [self.layer addSublayer:circleLayer];
+        UIColor *viewColor = [ACUSettings noctisEnabled] ? [UIColor blackColor] : [UIColor whiteColor];
 
-      self.alpha = 0;
-      self.clipsToBounds = NO;
-      self.layer.masksToBounds = NO;
-      self.layer.shadowOffset = CGSizeMake(-7, 0);
-      self.layer.shadowRadius = 5;
-      self.layer.shadowOpacity = 0.5;
+        CAShapeLayer *circleLayer = [CAShapeLayer layer];
+        [circleLayer setPath:[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 100, 667)].CGPath];
+        [circleLayer setStrokeColor:viewColor.CGColor];
+        [circleLayer setFillColor:viewColor.CGColor];
+        [self.layer addSublayer:circleLayer];
 
-      self.center = CGPointMake(kScreenWidth - 17, kScreenHeight / 2);
+        self.alpha = 0;
+        self.clipsToBounds = NO;
+        self.layer.masksToBounds = NO;
+        self.layer.shadowOffset = CGSizeMake(-7, 0);
+        self.layer.shadowRadius = 5;
+        self.layer.shadowOpacity = 0.5;
 
-      _appViews = [[NSMutableArray alloc] init];
+        self.center = CGPointMake(kScreenWidth - 17, kScreenHeight / 2);
+
+        _appViews = [[NSMutableArray alloc] init];
     }
 
     return self;
@@ -33,22 +35,22 @@
     NSMutableArray *appIdentifiers = [[NSMutableArray alloc] init];
     NSMutableArray *favsIdentifiers = [ACUSettings sharedSettings].favoriteApps;
     if (0 < favsIdentifiers.count && favsIdentifiers.count == [ACUSettings sharedSettings].numberOfApps) {
-      for (int i = 0; i < [ACUSettings sharedSettings].numberOfApps; i++) {
-        NSString *identifier = favsIdentifiers[i];
-        [appIdentifiers addObject:identifier];
-      }
+        for (int i = 0; i < [ACUSettings sharedSettings].numberOfApps; i++) {
+            NSString *identifier = favsIdentifiers[i];
+            [appIdentifiers addObject:identifier];
+        }
     }
 
     if ([ACUSettings sharedSettings].useLastApp) {
-      if (![appIdentifiers containsObject:[self lastAppBundleIdentifier]] && 0 < appIdentifiers.count) {
-        [appIdentifiers removeObjectAtIndex:3];
-        [appIdentifiers insertObject:[self lastAppBundleIdentifier] atIndex:3];
-        return appIdentifiers;
-      }
+        if (![appIdentifiers containsObject:[self lastAppBundleIdentifier]] && 0 < appIdentifiers.count) {
+            [appIdentifiers removeObjectAtIndex:3];
+            [appIdentifiers insertObject:[self lastAppBundleIdentifier] atIndex:3];
+            return appIdentifiers;
+        }
 
-      if ([appIdentifiers count] == 0) {
-        [appIdentifiers addObject:[self lastAppBundleIdentifier]];
-      }
+        if ([appIdentifiers count] == 0) {
+            [appIdentifiers addObject:[self lastAppBundleIdentifier]];
+        }
     }
 
     return appIdentifiers;
@@ -66,12 +68,12 @@
     CGSize size = [objc_getClass("SBIconView") defaultIconSize];
     size.height = size.width;
     for (int i = 0; i < identifiers.count; i++) {
-      NSString *bundleID = identifiers[i];
-      ACUCustomAppView *appView = [[ACUCustomAppView alloc] initWithBundleIdentifier:bundleID size:size];
-      NSInteger angle = [self angleForIndex:i];
-      appView.center = [self centerforIcon:angle];
-      [self addSubview:appView];
-      [_appViews addObject:appView];
+        NSString *bundleID = identifiers[i];
+        ACUCustomAppView *appView = [[ACUCustomAppView alloc] initWithBundleIdentifier:bundleID size:size];
+        NSInteger angle = [self angleForIndex:i];
+        appView.center = [self centerforIcon:angle];
+        [self addSubview:appView];
+        [_appViews addObject:appView];
     }
 }
 

@@ -5,9 +5,9 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-			self.windowLevel = UIWindowLevelAlert + 1.0;
-			[self _setSecure:YES];
-      [self makeKeyAndVisible];
+        self.windowLevel = UIWindowLevelAlert + 1.0;
+        [self _setSecure:YES];
+        [self makeKeyAndVisible];
     }
     return self;
 }

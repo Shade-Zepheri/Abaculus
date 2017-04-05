@@ -1,7 +1,7 @@
 #import "headers.h"
 
 @interface ACUMenuView : UIView
-@property (nonatomic, strong) NSMutableArray *appViews;
+@property (strong, nonatomic) NSMutableArray *appViews;
 - (instancetype)initWithFrame:(CGRect)frame;
 - (void)layoutApps;
 - (void)touchMovedToPoint:(CGPoint)point;

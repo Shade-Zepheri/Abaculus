@@ -6,8 +6,8 @@
     BOOL _isFading;
     CGPoint _previousLocationInView;
 }
-@property (nonatomic, strong) ACUMenuView *menuView;
-@property (nonatomic, strong) ACUWindow *window;
+@property (strong, nonatomic) ACUMenuView *menuView;
+@property (strong, nonatomic) ACUWindow *window;
 + (instancetype)sharedInstance;
 - (void)fadeMenuIn;
 - (void)fadeMenuOutWithCompletion:(void(^)(void))completion;

@@ -1,5 +1,8 @@
-TARGET = iphone:9.3
+export TARGET = iphone:9.3
+
 CFLAGS = -fobjc-arc -O2
+
+INSTALL_TARGET_PROCESSES = SpringBoard
 
 include $(THEOS)/makefiles/common.mk
 
@@ -7,9 +10,7 @@ TWEAK_NAME = Abaculus
 Abaculus_FILES = Tweak.xm $(wildcard *.m)
 Abaculus_FRAMEWORKS = UIKit QuartzCore
 
-include $(THEOS_MAKE_PATH)/tweak.mk
+SUBPROJECTS = abaculus
 
-after-install::
-	install.exec "killall -9 SpringBoard"
-SUBPROJECTS += abaculus
+include $(THEOS_MAKE_PATH)/tweak.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk

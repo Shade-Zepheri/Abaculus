@@ -9,7 +9,7 @@
     static ACUController *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[self alloc] init];
+        sharedInstance = [self new];
     });
     return sharedInstance;
 }
@@ -31,42 +31,42 @@
 }
 
 - (void)fadeMenuIn {
-  if (_isVisible && _isFading) {
-    return;
-  }
+    if (_isVisible && _isFading) {
+        return;
+    }
 
-  [UIView animateWithDuration:0.5 animations:^{
-      _menuView.alpha = 1;
-      _isFading = YES;
-  } completion:^(BOOL finished){
-      if (finished) {
-        _isVisible = YES;
-        _isFading = NO;
-      }
-  }];
+    [UIView animateWithDuration:0.5 animations:^{
+        _menuView.alpha = 1;
+        _isFading = YES;
+    } completion:^(BOOL finished){
+        if (finished) {
+          _isVisible = YES;
+          _isFading = NO;
+        }
+    }];
 }
 
 - (void)fadeMenuOutWithCompletion:(void(^)(void))completion {
-  if (!_isVisible && !_isFading) {
-    return;
-  }
+    if (!_isVisible && !_isFading) {
+        return;
+    }
 
-  [UIView animateWithDuration:0.5 animations:^{
-      _menuView.alpha = 0;
-      _isFading = YES;
-  } completion:^(BOOL finished){
-      if (finished) {
-          _isFading = NO;
-          [_menuView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-          _isVisible = NO;
-          completion();
-      }
-  }];
+    [UIView animateWithDuration:0.5 animations:^{
+        _menuView.alpha = 0;
+        _isFading = YES;
+    } completion:^(BOOL finished){
+        if (finished) {
+            _isFading = NO;
+            [_menuView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            _isVisible = NO;
+            completion();
+        }
+    }];
 }
 
 - (void)_gestureStateChanged:(UIGestureRecognizer*)recognizer {
     if (![ACUSettings sharedSettings].enabled || ([[UIKeyboard activeKeyboard] isActive] && [ACUSettings sharedSettings].keyboardDisables)) {
-      return;
+        return;
     }
 
     CGPoint touchPoint = [recognizer locationInView:recognizer.view];
