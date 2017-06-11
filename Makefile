@@ -1,6 +1,6 @@
 export TARGET = iphone:9.3
 
-CFLAGS = -fobjc-arc -O2
+CFLAGS = -fobjc-arc
 
 INSTALL_TARGET_PROCESSES = SpringBoard
 

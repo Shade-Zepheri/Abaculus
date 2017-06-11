@@ -8,13 +8,13 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        UIColor *viewColor = [ACUSettings noctisEnabled] ? [UIColor blackColor] : [UIColor whiteColor];
+        UIColor *viewColor = [ACUSettings sharedSettings].backgroundColor;
 
-        CAShapeLayer *circleLayer = [CAShapeLayer layer];
-        [circleLayer setPath:[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 100, 667)].CGPath];
-        [circleLayer setStrokeColor:viewColor.CGColor];
-        [circleLayer setFillColor:viewColor.CGColor];
-        [self.layer addSublayer:circleLayer];
+        self.circleLayer = [CAShapeLayer layer];
+        [self.circleLayer setPath:[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 100, 667)].CGPath];
+        [self.circleLayer setStrokeColor:viewColor.CGColor];
+        [self.circleLayer setFillColor:viewColor.CGColor];
+        [self.layer addSublayer:self.circleLayer];
 
         self.alpha = 0;
         self.clipsToBounds = NO;
@@ -26,9 +26,44 @@
         self.center = CGPointMake(kScreenWidth - 17, kScreenHeight / 2);
 
         _appViews = [[NSMutableArray alloc] init];
+
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(backgroundColorDidChange:) name:@"Abaculus/BackgroundColorChange" object:nil];
+        [center addObserver:self selector:@selector(noctisEnabled:) name:@"com.laughingquoll.noctis.enablenotification" object:nil];
+        [center addObserver:self selector:@selector(noctisDisabled:) name:@"com.laughingquoll.noctis.disablenotification" object:nil];
     }
 
     return self;
+}
+
+- (void)backgroundColorDidChange:(NSNotification *)note {
+    NSDictionary *colorInfo = [note userInfo];
+    UIColor *color = colorInfo[@"backgroundColor"];
+
+    [self.circleLayer setStrokeColor:color.CGColor];
+    [self.circleLayer setFillColor:color.CGColor];
+}
+
+- (void)noctisEnabled:(NSNotification *)note {
+    if (![ACUSettings sharedSettings].useNoctis) {
+        return;
+    }
+
+    UIColor *color = [UIColor blackColor];
+
+    [self.circleLayer setStrokeColor:color.CGColor];
+    [self.circleLayer setFillColor:color.CGColor];
+}
+
+- (void)noctisDisabled:(NSNotification *)note {
+    if (![ACUSettings sharedSettings].useNoctis) {
+        return;
+    }
+
+    UIColor *color = [UIColor whiteColor];
+
+    [self.circleLayer setStrokeColor:color.CGColor];
+    [self.circleLayer setFillColor:color.CGColor];
 }
 
 - (NSMutableArray*)appIdentifiers {
@@ -79,8 +114,8 @@
 
 - (NSInteger)angleForIndex:(NSInteger)index {
     NSInteger angle;
+    //dont do this kids
     if ([ACUSettings sharedSettings].numberOfApps == 5) {
-      //angles 100 110 180 250 260
       switch (index) {
         case 0:
           angle = 97;
