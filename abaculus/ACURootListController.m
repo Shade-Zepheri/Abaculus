@@ -1,4 +1,4 @@
-#include "Main.h"
+#include "ACURootListController.h"
 
 @implementation ACURootListController
 
@@ -34,6 +34,25 @@
 
 - (void)sendEmail {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:ziroalpha@gmail.com?subject=Abaculus"]];
+}
+
+- (id)readPreferenceValue:(PSSpecifier*)specifier {
+    NSDictionary *settings = [NSDictionary dictionaryWithContentsOfFile:ACUPreferencePath];
+    if (!settings[specifier.properties[@"key"]]) {
+        return specifier.properties[@"default"];
+    }
+    return settings[specifier.properties[@"key"]];
+}
+
+- (void)setPreferenceValue:(id)value specifier:(PSSpecifier*)specifier {
+    NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
+    [defaults addEntriesFromDictionary:[NSDictionary dictionaryWithContentsOfFile:ACUPreferencePath]];
+    [defaults setObject:value forKey:specifier.properties[@"key"]];
+    [defaults writeToFile:ACUPreferencePath atomically:YES];
+    CFStringRef toPost = (__bridge CFStringRef)specifier.properties[@"PostNotification"];
+    if (toPost) {
+      CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), toPost, NULL, NULL, YES);
+    }
 }
 
 @end
