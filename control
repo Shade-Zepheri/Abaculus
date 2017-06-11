@@ -4,6 +4,7 @@ Depends: mobilesubstrate, preferenceloader, applist, ws.hbang.common
 Version: 0.2
 Architecture: iphoneos-arm
 Description: An elegant App Launcher
+Depiction: http://shade-zepheri.github.io/depic/index.html?p=com.shade.abaculus
 Maintainer: Shade Zepheri <ziroalpha@gmail.com>
 Author: Shade Zepheri <ziroalpha@gmail.com>
 Section: Tweaks
