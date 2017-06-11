@@ -7,7 +7,7 @@ INSTALL_TARGET_PROCESSES = SpringBoard
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = Abaculus
-Abaculus_FILES = Tweak.xm $(wildcard *.m)
+Abaculus_FILES = Tweak.x $(wildcard *.m)
 Abaculus_FRAMEWORKS = UIKit QuartzCore
 
 SUBPROJECTS = abaculus

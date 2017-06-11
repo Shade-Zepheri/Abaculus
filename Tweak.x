@@ -11,11 +11,3 @@
     [[%c(FBSystemGestureManager) sharedInstance] addGestureRecognizer:screenEdgePan toDisplay:[%c(FBDisplayManager) mainDisplay]];
 }
 %end
-
-void reloadSettings() {
-    [[ACUSettings sharedSettings] reloadSettings];
-}
-
-%ctor {
-    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadSettings, CFSTR("com.shade.abaculus/ReloadPrefs"), NULL, CFNotificationSuspensionBehaviorCoalesce);
-}
