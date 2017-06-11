@@ -10,5 +10,5 @@ static inline void initializeTweak(CFNotificationCenterRef center, void *observe
 
 %ctor {
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, &initializeTweak, CFSTR("SBSpringBoardDidLaunchNotification"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
-    [ACUSettings sharedSettings]
+    [ACUSettings sharedSettings];
 }
