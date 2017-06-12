@@ -12,5 +12,6 @@
 @property (assign, readonly, nonatomic) BOOL useLastApp;
 @property (strong, nonatomic) NSMutableArray *favoriteApps;
 + (instancetype)sharedSettings;
++ (BOOL)noctisEnabled;
 - (void)reloadSettings;
 @end

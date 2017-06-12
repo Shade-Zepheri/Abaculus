@@ -8,12 +8,12 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        UIColor *viewColor = [ACUSettings sharedSettings].backgroundColor;
+        UIColor *viewColor = [ACUSettings noctisEnabled] ? [UIColor blackColor] :[ACUSettings sharedSettings].backgroundColor;
 
         self.circleLayer = [CAShapeLayer layer];
-        [self.circleLayer setPath:[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 100, 667)].CGPath];
-        [self.circleLayer setStrokeColor:viewColor.CGColor];
-        [self.circleLayer setFillColor:viewColor.CGColor];
+        self.circleLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 100, 667)].CGPath;
+        self.circleLayer.strokeColor = viewColor.CGColor;
+        self.circleLayer.fillColor = viewColor.CGColor;
         [self.layer addSublayer:self.circleLayer];
 
         self.alpha = 0;
@@ -40,8 +40,8 @@
     NSDictionary *colorInfo = [note userInfo];
     UIColor *color = colorInfo[@"backgroundColor"];
 
-    [self.circleLayer setStrokeColor:color.CGColor];
-    [self.circleLayer setFillColor:color.CGColor];
+    self.circleLayer.strokeColor = color.CGColor;
+    self.circleLayer.fillColor = color.CGColor;
 }
 
 - (void)noctisEnabled:(NSNotification *)note {
@@ -51,8 +51,8 @@
 
     UIColor *color = [UIColor blackColor];
 
-    [self.circleLayer setStrokeColor:color.CGColor];
-    [self.circleLayer setFillColor:color.CGColor];
+    self.circleLayer.strokeColor = color.CGColor;
+    self.circleLayer.fillColor = color.CGColor;
 }
 
 - (void)noctisDisabled:(NSNotification *)note {
@@ -62,8 +62,8 @@
 
     UIColor *color = [UIColor whiteColor];
 
-    [self.circleLayer setStrokeColor:color.CGColor];
-    [self.circleLayer setFillColor:color.CGColor];
+    self.circleLayer.strokeColor = color.CGColor;
+    self.circleLayer.fillColor = color.CGColor;
 }
 
 - (NSMutableArray*)appIdentifiers {

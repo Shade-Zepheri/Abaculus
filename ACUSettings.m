@@ -11,6 +11,18 @@
     return sharedInstance;
 }
 
++ (BOOL)noctisEnabled {
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/MobileSubstrate/DynamicLibraries/Noctis.dylib"]) {
+      return NO;
+    }
+
+    CFPreferencesAppSynchronize(kNoctisAppID);
+    Boolean valid = NO;
+    BOOL noctisEnabled = CFPreferencesGetAppBooleanValue(kNoctisEnabledKey, kNoctisAppID, &valid);
+
+    return valid && noctisEnabled;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
