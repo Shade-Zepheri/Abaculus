@@ -32,10 +32,6 @@
   	self.table.tableHeaderView.frame = frame;
 }
 
-- (void)sendEmail {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:ziroalpha@gmail.com?subject=Abaculus"]];
-}
-
 - (id)readPreferenceValue:(PSSpecifier*)specifier {
     NSDictionary *settings = [NSDictionary dictionaryWithContentsOfFile:ACUPreferencePath];
     if (!settings[specifier.properties[@"key"]]) {

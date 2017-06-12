@@ -1,4 +1,4 @@
-CFLAGS = -fobjc-arc -O2
+CFLAGS = -fobjc-arc
 
 include $(THEOS)/makefiles/common.mk
 

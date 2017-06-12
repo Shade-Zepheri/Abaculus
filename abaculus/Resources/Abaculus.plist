@@ -128,7 +128,7 @@
 			<key>ALSingleEnabledMode</key>
 			<string>0</string>
 			<key>ALAllowsSelection</key>
-      <string>1</string>
+			<string>1</string>
 			<key>ALSectionDescriptors</key>
 			<array>
 				<dict>
@@ -193,11 +193,13 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>sendEmail</string>
+			<string>hb_sendSupportEmail</string>
 			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>icon</key>
-			<string>mail.png</string>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>HBTintedTableCell</string>
+			<key>defaults</key>
+			<string>com.shade.abaculus</string>
 			<key>label</key>
 			<string>Email Support</string>
 		</dict>
