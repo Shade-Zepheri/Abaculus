@@ -67,23 +67,14 @@
 }
 
 - (NSMutableArray*)appIdentifiers {
-    NSMutableArray *appIdentifiers = [[NSMutableArray alloc] init];
-    NSMutableArray *favsIdentifiers = [ACUSettings sharedSettings].favoriteApps;
-    if (0 < favsIdentifiers.count && favsIdentifiers.count == [ACUSettings sharedSettings].numberOfApps) {
-        for (int i = 0; i < [ACUSettings sharedSettings].numberOfApps; i++) {
-            NSString *identifier = favsIdentifiers[i];
-            [appIdentifiers addObject:identifier];
-        }
-    }
+    NSMutableArray *appIdentifiers = [ACUSettings sharedSettings].favoriteApps;
 
     if ([ACUSettings sharedSettings].useLastApp) {
-        if (![appIdentifiers containsObject:[self lastAppBundleIdentifier]] && 0 < appIdentifiers.count) {
+        if (![appIdentifiers containsObject:[self lastAppBundleIdentifier]] && appIdentifiers.count > 0) {
             [appIdentifiers removeObjectAtIndex:3];
             [appIdentifiers insertObject:[self lastAppBundleIdentifier] atIndex:3];
             return appIdentifiers;
-        }
-
-        if ([appIdentifiers count] == 0) {
+        } else if ([appIdentifiers count] == 0) {
             [appIdentifiers addObject:[self lastAppBundleIdentifier]];
         }
     }
