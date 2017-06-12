@@ -15,10 +15,10 @@
   		initWithContentsOfFile:[[NSBundle bundleWithPath:@"/Library/PreferenceBundles/Abaculus.bundle"] pathForResource:@"AbaculusHeader" ofType:@"png"]];
 
   	UIImageView *headerView = [[UIImageView alloc] initWithFrame:frame];
-  	[headerView setImage:headerImage];
+  	headerView.image = headerImage;
   	headerView.backgroundColor = [UIColor blackColor];
-  	[headerView setContentMode:UIViewContentModeScaleAspectFit];
-  	[headerView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+  	headerView.contentMode = UIViewContentModeScaleAspectFit;
+  	headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
   	self.table.tableHeaderView = headerView;
 }

@@ -9,6 +9,7 @@
         [self _setSecure:YES];
         [self makeKeyAndVisible];
     }
+
     return self;
 }
 
@@ -17,6 +18,7 @@
     if (hitTestView == self) {
         hitTestView = nil;
     }
+    
     return hitTestView;
 }
 

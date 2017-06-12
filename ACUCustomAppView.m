@@ -7,15 +7,15 @@
 - (instancetype)initWithBundleIdentifier:(NSString*)bundleIdentifier size:(CGSize)size {
     self = [super initWithFrame:CGRectMake(0, 0, size.width, size.height)];
     if (self) {
-        _bundleIdentifier = bundleIdentifier;
-        _isHighlighted = NO;
+        self.bundleIdentifier = bundleIdentifier;
+        self.isHighlighted = NO;
 
-        _highlightingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.height * 0.9, size.height * 0.9)];
-        _highlightingView.center = self.center;
-        _highlightingView.layer.cornerRadius = 13;
-        _highlightingView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-        _highlightingView.alpha = 0;
-        [self addSubview:_highlightingView];
+        self.highlightingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.height * 0.9, size.height * 0.9)];
+        self.highlightingView.center = self.center;
+        self.highlightingView.layer.cornerRadius = 13;
+        self.highlightingView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+        self.highlightingView.alpha = 0;
+        [self addSubview:self.highlightingView];
 
         SBIcon *icon = nil;
         if ([objc_getClass("SBIconViewMap") respondsToSelector:@selector(homescreenMap)]) {
@@ -35,29 +35,29 @@
 }
 
 - (void)highlightApp {
-    if (_isHighlighted) {
+    if (self.isHighlighted) {
         return;
     }
 
     [UIView animateWithDuration:0.1 animations:^{
-        _highlightingView.alpha = 1.0;
+        self.highlightingView.alpha = 1.0;
     } completion:^(BOOL finished){
         if (finished) {
-            _isHighlighted = YES;
+            self.isHighlighted = YES;
         }
     }];
 }
 
 - (void)unhighlightApp {
-    if (!_isHighlighted) {
+    if (!self.isHighlighted) {
         return;
     }
 
     [UIView animateWithDuration:0.1 animations:^{
-        _highlightingView.alpha = 0.0;
+        self.highlightingView.alpha = 0.0;
     } completion:^(BOOL finished){
         if (finished) {
-            _isHighlighted = NO;
+            self.isHighlighted = NO;
         }
     }];
 }
