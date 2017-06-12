@@ -1,5 +1,9 @@
 #import "ACUSettings.h"
 
+void reloadSettings(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
+    [[ACUSettings sharedSettings] reloadSettings];
+}
+
 @implementation ACUSettings
 
 + (instancetype)sharedSettings {
@@ -26,6 +30,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, reloadSettings, CFSTR("com.shade.abaculus/ReloadPrefs"), NULL, CFNotificationSuspensionBehaviorCoalesce);
         [self reloadSettings];
     }
 
