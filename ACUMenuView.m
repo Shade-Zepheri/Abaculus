@@ -84,8 +84,12 @@
 
 - (NSString*)lastAppBundleIdentifier {
     NSMutableArray *switcherItems = [[objc_getClass("SBAppSwitcherModel") sharedInstance] mainSwitcherDisplayItems];
-    SBDisplayItem *lastAppItem = switcherItems[1];
+    if (switcherItems.count < 2) {
+        HBLogWarn(@"No Last App, only Current App. Returning Settings as a fallback");
+        return @"com.apple.Preferences";
+    }
 
+    SBDisplayItem *lastAppItem = switcherItems[1];
     return lastAppItem.displayIdentifier;
 }
 
