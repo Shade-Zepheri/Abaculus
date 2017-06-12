@@ -28,7 +28,7 @@
         _appViews = [[NSMutableArray alloc] init];
 
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center addObserver:self selector:@selector(backgroundColorDidChange:) name:@"Abaculus/BackgroundColorChange" object:nil];
+        [center addObserver:self selector:@selector(backgroundColorDidChange:) name:@"com.shade.abaculus/BackgroundColorChange" object:nil];
         [center addObserver:self selector:@selector(noctisEnabled:) name:@"com.laughingquoll.noctis.enablenotification" object:nil];
         [center addObserver:self selector:@selector(noctisDisabled:) name:@"com.laughingquoll.noctis.disablenotification" object:nil];
     }

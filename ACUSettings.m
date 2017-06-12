@@ -57,7 +57,8 @@
       	}
         _favoriteApps = favorites;
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"Abaculus/BackgroundColorChange" object:nil userInfo:@{@"backgroundColor": _backgroundColor}];
+        NSDictionary *colorInfo = @{@"backgroundColor": _backgroundColor};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"com.shade.abaculus/BackgroundColorChange" object:nil userInfo:colorInfo];
     }
 }
 
