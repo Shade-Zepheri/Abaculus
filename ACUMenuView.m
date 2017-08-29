@@ -83,7 +83,7 @@
 }
 
 - (NSString*)lastAppBundleIdentifier {
-    NSMutableArray *switcherItems = [[objc_getClass("SBAppSwitcherModel") sharedInstance] mainSwitcherDisplayItems];
+    NSMutableArray *switcherItems = [[[objc_getClass("SBAppSwitcherModel") sharedInstance] mainSwitcherDisplayItems] mutableCopy];
     if (switcherItems.count < 2) {
         HBLogWarn(@"No Last App, only Current App. Returning Settings as a fallback");
         return @"com.apple.Preferences";
@@ -187,7 +187,7 @@
     for (ACUCustomAppView *appView in _appViews) {
         if (appView.isHighlighted) {
             NSString *bundleIdentifier = appView.bundleIdentifier;
-            [[UIApplication sharedApplication] launchApplicationWithIdentifier:bundleIdentifier suspended:NO];
+            [(SpringBoard *)[UIApplication sharedApplication] launchApplicationWithIdentifier:bundleIdentifier suspended:NO];
             [_appViews removeAllObjects];
             break;
         }

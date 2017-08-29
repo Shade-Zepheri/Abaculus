@@ -4,7 +4,7 @@
 
 @implementation ACUCustomAppView
 
-- (instancetype)initWithBundleIdentifier:(NSString*)bundleIdentifier size:(CGSize)size {
+- (instancetype)initWithBundleIdentifier:(NSString *)bundleIdentifier size:(CGSize)size {
     self = [super initWithFrame:CGRectMake(0, 0, size.width, size.height)];
     if (self) {
         self.bundleIdentifier = bundleIdentifier;
@@ -17,14 +17,7 @@
         self.highlightingView.alpha = 0;
         [self addSubview:self.highlightingView];
 
-        SBIcon *icon = nil;
-        if ([objc_getClass("SBIconViewMap") respondsToSelector:@selector(homescreenMap)]) {
-    			icon = [[[objc_getClass("SBIconViewMap") homescreenMap] iconModel] applicationIconForBundleIdentifier:bundleIdentifier];
-    		} else {
-    			icon = [[[[objc_getClass("SBIconController") sharedInstance] homescreenIconViewMap] iconModel] applicationIconForBundleIdentifier:bundleIdentifier];
-    		}
-
-        UIImage *iconImage = [icon generateIconImage:2];
+        UIImage *iconImage = [UIImage _applicationIconImageForBundleIdentifier:bundleIdentifier format:0 scale:[UIScreen mainScreen].scale];
         UIImageView *iconImageView = [[UIImageView alloc] initWithImage:iconImage];
         iconImageView.frame = CGRectMake(0, 0, size.width * 0.7, size.height * 0.7);
         iconImageView.center = self.center;
