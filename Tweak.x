@@ -3,9 +3,9 @@
 #import "ACUSettings.h"
 
 static inline void initializeTweak(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
-    UIScreenEdgePanGestureRecognizer *screenEdgePan = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:[ACUController sharedInstance] action:@selector(_gestureStateChanged:)];
-    screenEdgePan.edges = UIRectEdgeRight;
-    [[%c(FBSystemGestureManager) sharedInstance] addGestureRecognizer:screenEdgePan toDisplay:[%c(FBDisplayManager) mainDisplay]];
+    SBScreenEdgePanGestureRecognizer *recognizer = [[%c(SBScreenEdgePanGestureRecognizer) alloc] initWithTarget:[ACUController sharedInstance] action:@selector(_gestureStateChanged:) type:SBSystemGestureTypeSideAppGrabberReveal];
+    recognizer.edges = UIRectEdgeRight;
+    [[%c(SBSystemGestureManager) mainDisplayManager] addGestureRecognizer:recognizer withType:51];
 }
 
 %ctor {

@@ -1,30 +1,19 @@
 #import <objc/runtime.h>
-#import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import <SpringBoard/SBApplicationIcon.h>
+#import <SpringBoard/SBDisplayItem.h>
+#import <SpringBoard/SBIconController.h>
+#import <SpringBoard/SBIconModel.h>
+#import <SpringBoard/SBMainDisplaySystemGestureManager.h>
+#import <SpringBoard/SBScreenEdgePanGestureRecognizer.h>
+#import <SpringBoard/SpringBoard.h>
+#import <UIKit/UIKit.h>
 
 #define kScreenWidth CGRectGetMaxX([UIScreen mainScreen].bounds)
 #define kScreenHeight CGRectGetMaxY([UIScreen mainScreen].bounds)
 
-@interface FBSystemGestureManager : NSObject <UIGestureRecognizerDelegate>
-+ (id)sharedInstance;
-- (void)addGestureRecognizer:(id)arg1 toDisplay:(id)arg2;
-@end
-
-@interface FBDisplayManager : NSObject
-+ (id)sharedInstance;
-+ (id)mainDisplay;
-@end
-
-@interface UIApplication (Private)
-- (void)launchApplicationWithIdentifier:(NSString*)identifier suspended:(BOOL)suspended;
-@end
-
-@interface SBIconModel : NSObject
-- (id)applicationIconForBundleIdentifier:(id)arg1;
-@end
-
 @interface SBIcon : NSObject
-- (UIImage*)generateIconImage:(int)arg1;
+- (UIImage *)generateIconImage:(int)arg1;
 @end
 
 @interface SBIconViewMap : NSObject
@@ -33,9 +22,8 @@
 + (SBIconViewMap *)homescreenMap;
 @end
 
-@interface SBIconController : UIViewController
+@interface SBIconController ()
 @property (nonatomic,readonly) SBIconViewMap * homescreenIconViewMap;
-+ (id)sharedInstance;
 @end
 
 @interface UIWindow (Private)
@@ -47,12 +35,8 @@
 @end
 
 @interface SBAppSwitcherModel : NSObject
-+ (id)sharedInstance;
-- (id)mainSwitcherDisplayItems;
-@end
-
-@interface SBDisplayItem : NSObject
-@property (nonatomic,copy,readonly) NSString * displayIdentifier;
++ (instancetype)sharedInstance;
+- (NSArray *)mainSwitcherDisplayItems;
 @end
 
 @interface UIKeyboard : UIView
